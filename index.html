@@ -6,7 +6,7 @@
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
 <body>
-<ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+  <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
 
 <template id="page1.html">
   <ons-page id="page1">
@@ -31,13 +31,27 @@
   </ons-page>
 </template>
 <script>
-document.addEventListener('init', function(event) {
+  document.addEventListener('init', function(event) {
   var page = event.target;
 
-fanction showPosition(ยนหระรนื) {
-  page.querySelector('#latlng').innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-}
-  
+  function showPosition(position) {
+    page.querySelector('#latlng').innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+    const Url = 'https://supachai-taist-demo.firebaseio.com/logs.json';
+    let Data = {
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+    };
+    const Params = {
+      headers:{ 
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(Data),
+      method:'POST'
+    };
+    console.log(JSON.stringify(Data));
+    fetch(Url, Params).then(data=>{return data.json();}).then(res=>{console.log(res);});
+  }
+        
   if (page.id === 'page1') {
     page.querySelector('#push-button').onclick = function() {
       document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
