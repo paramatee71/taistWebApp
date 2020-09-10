@@ -6,6 +6,41 @@
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
 <body>
-  <ons-button onclick="alert('Hello World!')">Click Me</ons-button>
+ <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
+
+<template id="tabbar.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar>
+      <div class="center">Home</div>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.toggleMenu()">
+          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="auto">
+      <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
+      <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
+      <ons-tab label="Animations" icon="ion-film-marker" page="animations.html"></ons-tab>
+    </ons-tabbar>
+<script>
+  window.fn = {};
+
+window.fn.toggleMenu = function () {
+  document.getElementById('appSplitter').right.toggle();
+};
+
+window.fn.loadView = function (index) {
+  document.getElementById('appTabbar').setActiveTab(index);
+  document.getElementById('sidemenu').close();
+};
+</script>  
 </body>
 </html>
