@@ -36,7 +36,7 @@
 
   function showPosition(position) {
     page.querySelector('#latlng').innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-    const Url = 'https://supachai-taist-demo.firebaseio.com/logs.json';
+    const Url = 'https://paramatee-taist-demo.firebaseio.com/json';
     let Data = {
       latitude:position.coords.latitude,
       longitude:position.coords.longitude
